@@ -5,14 +5,15 @@
                 <h1>悦读后台操作系统</h1>
                 <div class="login-layla">
                     <el-dropdown  @command="handleCommand" >
-                    <span class="el-dropdown-link">
-                        <img :src="userinfo.avatar" >
-                        <i class="el-icon-arrow-down el-icon--right"></i>
-                    </span>
-                    <el-dropdown-menu slot="dropdown">
-                        <el-dropdown-item command="1">修改个人信息</el-dropdown-item>
-                        <el-dropdown-item command="2">退出登录</el-dropdown-item>
-                    </el-dropdown-menu>
+                      <span class="el-dropdown-link">
+                          <img :src="$store.state.userinfo.avatar" >
+                          <i class="el-icon-arrow-down el-icon--right"></i>
+                      </span>
+                      <el-dropdown-menu slot="dropdown">
+                          <el-dropdown-item  command="1">修改个人信息</el-dropdown-item>
+                          <el-dropdown-item divided command="2">修改密码</el-dropdown-item>
+                          <el-dropdown-item divided command="3">退出登录</el-dropdown-item>
+                      </el-dropdown-menu>
                     </el-dropdown>
                 </div>
             </div>
@@ -27,25 +28,30 @@
                             <span>用户相关</span>
                         </template>
                         <el-menu-item-group>
-                            <template slot="title">用户管理</template>
                             <el-menu-item index="/layout/index">首页</el-menu-item>
                             <el-menu-item index="/login">登录页</el-menu-item>
                             <el-menu-item index="/layout/users">用户管理页面</el-menu-item>
                             <el-menu-item index="/layout/userAdd">添加用户页面</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
-                    <el-menu-item index="2">
-                        <i class="el-icon-menu"></i>
-                        <span slot="title">导航二</span>
-                    </el-menu-item>
-                    <el-menu-item index="3" disabled>
-                        <i class="el-icon-document"></i>
-                        <span slot="title">导航三</span>
-                    </el-menu-item>
-                    <el-menu-item index="4">
-                        <i class="el-icon-setting"></i>
-                        <span slot="title">导航四</span>
-                    </el-menu-item>
+                    <el-submenu index="2">
+                        <template slot="title">
+                            <i class="el-icon-location"></i>
+                            <span>图书管理</span>
+                        </template>
+                        <el-menu-item-group>
+                          <el-menu-item index="/layout/books">图书列表</el-menu-item>
+                        </el-menu-item-group>
+                    </el-submenu>
+                    <el-submenu index="3">
+                        <template slot="title">
+                            <i class="el-icon-location"></i>
+                            <span>轮播图</span>
+                        </template>
+                        <el-menu-item-group>
+                           <el-menu-item index="/layout/swiper">轮播图列表</el-menu-item>
+                        </el-menu-item-group>
+                    </el-submenu>
                     </el-menu>
                 </div>
             <div class="main-content ml-200">
@@ -65,7 +71,9 @@ export default {
       let click = command;
       if (click == 1) {
         this.$router.push("/layout/userEdit");
-      } else if (click == 2) {
+      }else if(click == 2){
+         this.$router.push("/layout/changePassword");
+      }else if (click == 3) {
         this.$axios.get("logout").then(res => {
           if (res.code == 200) {
             this.$store.commit("CHANGE_USERINFO", null);
@@ -75,9 +83,7 @@ export default {
       }
     }
   },
-  computed: {
-    ...mapState(["userinfo"])
-  }
+  
 };
 </script>
 

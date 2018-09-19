@@ -15,7 +15,7 @@
             <el-table-column
                 prop="createdTime"
                 label="日期"
-                width="130">
+                width="200">
             </el-table-column>
             <el-table-column
                 prop="desc"
@@ -32,7 +32,7 @@
             </el-table-column>
             <el-table-column label="操作" >
                 <template slot-scope="scope">
-                    <el-button @click="handleDetailes" size="samll" type="primary">
+                    <el-button @click="handleDetailes(scope.row._id)" size="samll" type="primary">
                         产看详情
                     </el-button >
                     <el-button @click="handleDelete(scope.row._id)" size="samll" type="primary">
@@ -45,6 +45,7 @@
           background
           layout="prev, pager, next"
           @current-change="pageChange"
+          :page-size="8"
           :total="count">
         </el-pagination>
     </div>
@@ -56,24 +57,28 @@ export default {
     return {
       tableData: [],
       count:0,
-      page:1
+      page:1,
     };
   },
   methods: {
     getData() {
-      this.$axios.get("/user", {pn : this.page, size: 10}).then(res => {
-        console.log(res)
+      this.$axios.get("/user", {pn : this.page, size: 8}).then(res => {
         if (res.code == 200) {
           this.tableData = res.data;
+          this.tableData.forEach((item,index) => {
+            let time = new Date(item.createdTime)
+            let createdtime = item.createdTime = time.toLocaleDateString()+" "+ time.toTimeString().substr(0, 8)
+            this.tableData[index].createdTime = createdtime
+          })
           this.count = res.count
         }
       });
     },
-    handleDetailes() {
-      this.$router.push("/layout/userDetails",);
+    handleDetailes(id) {
+      this.$router.push({path:`/layout/userDetails?id=${id}`});
     },
     handleDelete(id) {
-      this.$confirm("此操作将永久管理员, 是否继续?", "警告", {
+      this.$confirm("此操作将永久删除管理员, 是否继续?", "警告", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"

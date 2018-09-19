@@ -8,11 +8,14 @@ const components = {
   login:()=> import('@/views/login/login'),
   layout:()=> import ('@/views/layout/layout'),
   index:()=> import('@/views/index/index'),
+  books:()=> import('@/views/books/bookList'),
+  swiper:()=> import('@/views/swiper/index'),
   users:()=> import('@/views/users/index'),
   userAdd:()=> import('@/views/userAdd/userAdd'),
   testUpload:()=> import('@/views/testUpload/index'),
   userEdit:()=> import('@/views/userEdit/userEdit'),
   userDetails:()=> import('@/views/userDetails/userDetails'),
+  changePassword:()=> import('@/views/userDetails/changePassword'),
 }
 
 export default new Router({
@@ -80,7 +83,28 @@ export default new Router({
               title:'详情页'
             },
             component:components.userDetails
-          }
+          },
+          {
+            path:'changePassword',
+            meta:{
+              title:'修改密码'
+            },
+            component:components.changePassword
+          },
+          {
+            path:'swiper',
+            meta:{
+              title:'轮播图列表'
+            },
+            component:components.swiper
+          },
+          {
+            path:'books',
+            meta:{
+              title:'图书列表'
+            },
+            component:components.books
+          },
       ]
     }
   ]

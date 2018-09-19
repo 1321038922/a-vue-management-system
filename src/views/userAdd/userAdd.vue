@@ -2,17 +2,17 @@
     <div>
         <h2>添加管理员</h2>
         <div class="form-wrap">
-            <el-form ref="form" :model="formData" size="small" label-width="80px" label-position="left">
-            <el-form-item label="用户名" >
-                <el-input v-model="formData.username">
+            <el-form ref="form" :rules="rule" :model="formData" size="small" label-width="80px" label-position="left">
+            <el-form-item label="用户名" prop="username" >
+                <el-input type="username" v-model="formData.username">
                 </el-input>
             </el-form-item>
-            <el-form-item label="密码" >
+            <el-form-item label="密码" prop="password" >
                 <el-input type="password" v-model="formData.password">
                 </el-input>
             </el-form-item>
-            <el-form-item type="password" label="确认密码" >
-                <el-input v-model="formData.checkpassword">
+            <el-form-item  label="确认密码" >
+                <el-input type="password" v-model="formData.checkpassword">
                 </el-input>
             </el-form-item>
             <el-form-item label="昵称">
