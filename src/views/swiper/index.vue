@@ -15,7 +15,7 @@
                     </template>
                 </el-table-column>
                 <el-table-column
-                    label="类名"
+                    label="类型"
                     width="120">
                     <template slot-scope="scope">
                         <el-tag size="medium" style="cursor: pointer">
@@ -41,20 +41,25 @@
                     <template slot-scope="scope">
                     <el-button
                         size="mini"
+                        type="primary"
+                        @click="edit(scope.row._id)"
                        >编辑
                     </el-button>
-                    <!--<el-button-->
-                        <!--size="mini"-->
-                        <!--@click="handleList(scope.$index, scope.row)">详情-->
-                    <!--</el-button>-->
-                    <!--<el-button-->
-                        <!--size="mini"-->
-                        <!--type="danger"-->
-                        <!--@click="handleDelete(scope.$index,scope.row)">删除-->
-                    <!--</el-button>-->
+                    <el-button
+                        size="mini"
+                        type="primary"
+                        @click="handleDelete(scope.row._id)">删除
+                    </el-button>
                     </template>
                 </el-table-column>
             </el-table>
+            <el-pagination
+          background
+          layout="prev, pager, next"
+          @current-change="pnChange"
+          :page-size="8"
+          :total="count">
+        </el-pagination>
         </div>
     </div>
 </template>
@@ -64,15 +69,44 @@ export default {
   data() {
     return {
       swipers: [],
-      pn: 1
+      pn: 1,
+      count:0,
     };
   },
   methods: {
     getData() {
-      this.$axios.get("/swiper", { pn: this.page, size: 8 }).then(res => {
+      this.$axios.get("/swiper", { pn: this.pn, size: 8 }).then(res => {
           console.log(res)
         this.swipers = res.data;
+        this.count = res.count
       });
+    },
+    handleDelete(id){
+        this.$confirm('此操作将永久删除轮播图, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+            this.$axios.post('/swiper/delete',{ids:[id]}).then(res =>{
+                
+                if(res.code == 200) {
+                    this.$message.success(res.msg)
+                    this.getData()
+                }
+            })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });          
+        });
+    },
+    edit(id){
+        this.$router.push({name:'editSwipers',query:{id}})
+    },
+    pnChange(pn) {       
+        this.pn = pn
+        this.getData();
     }
   },
   created() {

@@ -23,7 +23,6 @@
                 width="300">
             </el-table-column>
             <el-table-column
-                prop="desc"
                 label="用户头像"
                 width="100">
                 <template slot-scope="scope">
@@ -64,6 +63,7 @@ export default {
     getData() {
       this.$axios.get("/user", {pn : this.page, size: 8}).then(res => {
         if (res.code == 200) {
+          console.log(res)
           this.tableData = res.data;
           this.tableData.forEach((item,index) => {
             let time = new Date(item.createdTime)

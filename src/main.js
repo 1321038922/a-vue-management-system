@@ -7,10 +7,12 @@ import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import {$axios} from "./utils"
 import store from './store';
+import uploadImg from '@/components/upload-com';
 
 Vue.use(ElementUI);
 Vue.prototype.$axios = $axios
 Vue.config.productionTip = false
+Vue.component('upload-img',uploadImg)
 
 router.beforeEach((to, from, next) => {
   /* 路由发生变化修改页面title */

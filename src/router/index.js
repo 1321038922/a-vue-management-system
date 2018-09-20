@@ -9,7 +9,9 @@ const components = {
   layout:()=> import ('@/views/layout/layout'),
   index:()=> import('@/views/index/index'),
   books:()=> import('@/views/books/bookList'),
+  addBook:()=> import('@/views/books/addBook'),
   swiper:()=> import('@/views/swiper/index'),
+  addSwipers:()=> import('@/views/swiper/addSwipers'),
   users:()=> import('@/views/users/index'),
   userAdd:()=> import('@/views/userAdd/userAdd'),
   testUpload:()=> import('@/views/testUpload/index'),
@@ -104,6 +106,29 @@ export default new Router({
               title:'图书列表'
             },
             component:components.books
+          },
+          {
+            path:'addBook',
+            meta:{
+              title:'添加图书'
+            },
+            component:components.addBook
+          },
+          {
+            path:'addSwipers',
+            name:'addSwipers',
+            meta:{
+              title:'添加轮播图'
+            },
+            component:components.addSwipers
+          },
+          {
+            path:'editSwipers',
+            name:'editSwipers',
+            meta:{
+              title:'编辑轮播图'
+            },
+            component:components.addSwipers
           },
       ]
     }

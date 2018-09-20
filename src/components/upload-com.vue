@@ -2,8 +2,7 @@
     <label  class="upload-wrap">
         <i class="el-icon-plus" v-if="!imgUrl" ></i>
         <img :src="imgUrl" v-else>
-        <input  type="file" style="display: none" name="" @change="upload">
-        
+        <input  type="file" style="display: none" name="" @change="upload">        
     </label>
 </template>
 

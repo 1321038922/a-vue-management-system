@@ -41,6 +41,7 @@
                         </template>
                         <el-menu-item-group>
                           <el-menu-item index="/layout/books">图书列表</el-menu-item>
+                          <el-menu-item index="/layout/addBook">添加图书</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                     <el-submenu index="3">
@@ -50,6 +51,7 @@
                         </template>
                         <el-menu-item-group>
                            <el-menu-item index="/layout/swiper">轮播图列表</el-menu-item>
+                           <el-menu-item index="/layout/addSwipers">添加轮播图</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                     </el-menu>
@@ -77,6 +79,8 @@ export default {
         this.$axios.get("logout").then(res => {
           if (res.code == 200) {
             this.$store.commit("CHANGE_USERINFO", null);
+            this.$router.push("/login");
+          }else{
             this.$router.push("/login");
           }
         });
