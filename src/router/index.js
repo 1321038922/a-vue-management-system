@@ -9,7 +9,13 @@ const components = {
   layout:()=> import ('@/views/layout/layout'),
   index:()=> import('@/views/index/index'),
   books:()=> import('@/views/books/bookList'),
+  category:()=> import('@/views/category/category'),
+  addCategory:()=> import('@/views/category/addCategory'),
+  editCategory:()=> import('@/views/category/editCategory'),
+  booksIncategory:()=> import('@/views/category/booksIncategory'),
   addBook:()=> import('@/views/books/addBook'),
+  bookCategory:()=> import('@/views/books/bookCategory'),
+  editBook:()=> import('@/views/books/editBook'),
   swiper:()=> import('@/views/swiper/index'),
   addSwipers:()=> import('@/views/swiper/addSwipers'),
   users:()=> import('@/views/users/index'),
@@ -115,6 +121,22 @@ export default new Router({
             component:components.addBook
           },
           {
+            name:'editBook',
+            path:'editBook',
+            meta:{
+              title:'编辑图书'
+            },
+            component:components.editBook
+          },
+          {
+            name:'bookCategory',
+            path:'bookCategory',
+            meta:{
+              title:'给图书添加分类'
+            },
+            component:components.bookCategory
+          },
+          {
             path:'addSwipers',
             name:'addSwipers',
             meta:{
@@ -129,6 +151,38 @@ export default new Router({
               title:'编辑轮播图'
             },
             component:components.addSwipers
+          },
+          {
+            path:'category',
+            name:'category',
+            meta:{
+              title:'分类列表'
+            },
+            component:components.category
+          },
+          {
+            path:'addCategory',
+            name:'addCategory',
+            meta:{
+              title:'添加分类'
+            },
+            component:components.addCategory
+          },
+          {
+            path:'editCategory',
+            name:'editCategory',
+            meta:{
+              title:'编辑分类'
+            },
+            component:components.editCategory
+          },
+          {
+            path:'booksIncategory',
+            name:'booksIncategory',
+            meta:{
+              title:'分类下的书籍'
+            },
+            component:components.booksIncategory
           },
       ]
     }

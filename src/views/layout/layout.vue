@@ -36,7 +36,7 @@
                     </el-submenu>
                     <el-submenu index="2">
                         <template slot="title">
-                            <i class="el-icon-location"></i>
+                            <i class="el-icon-document"></i>
                             <span>图书管理</span>
                         </template>
                         <el-menu-item-group>
@@ -46,12 +46,22 @@
                     </el-submenu>
                     <el-submenu index="3">
                         <template slot="title">
-                            <i class="el-icon-location"></i>
+                            <i class="el-icon-setting"></i>
                             <span>轮播图</span>
                         </template>
                         <el-menu-item-group>
                            <el-menu-item index="/layout/swiper">轮播图列表</el-menu-item>
                            <el-menu-item index="/layout/addSwipers">添加轮播图</el-menu-item>
+                        </el-menu-item-group>
+                    </el-submenu>
+                    <el-submenu index="4">
+                        <template slot="title">
+                            <i class="el-icon-menu"></i>
+                            <span>分类管理</span>
+                        </template>
+                        <el-menu-item-group>
+                           <el-menu-item index="/layout/category">分类列表</el-menu-item>
+                           <el-menu-item index="/layout/addCategory">添加分类</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                     </el-menu>

@@ -3,12 +3,11 @@
         <div>
             <h2>图书列表</h2>
         </div>
-        <el-table
-            
+        <el-table           
             :data="tableData"
             style="width: 100%">
             <el-table-column
-                label="头像"
+                label="封面"
                 width="120">
                  <template slot-scope="scope">
                     <img :src="scope.row.img"  class="avatain" alt="">
@@ -17,7 +16,7 @@
             <el-table-column
                 prop="author"
                 label="作者"
-                width="150">
+                width="100">
             </el-table-column>
             <el-table-column
                 prop="createTime"
@@ -45,12 +44,17 @@
                 <template slot-scope="scope">
                 <el-button
                     size="mini"
-                    @click="handleEdit(scope.$index, scope.row)">编辑
+                    @click="handleEdit( scope.row._id)">编辑
                 </el-button>
                 <el-button
                     size="mini"
                     type="danger"
-                    @click="handleDelete(scope.$index, scope.row)">删除
+                    @click="handleDelete(scope.row._id)">删除
+                </el-button>
+                <el-button
+                    size="mini"
+                    type="danger"
+                    @click="addCategory(scope.row._id)">给书籍添加分类
                 </el-button>
                 </template>
             </el-table-column>
@@ -75,11 +79,15 @@ export default {
     };
   },
   methods: {
+    getcount() {
+      this.$axios.get("/book", { pn: this.pn, size: 100000 }).then(res => {
+        this.count = res.data.length;
+      });
+    },
     getData() {
-      this.$axios.get("/book", { pn: this.page, size: 8 }).then(res => {
+      this.$axios.get("/book", { pn: this.pn, size: 8 }).then(res => {
         console.log(res);
         this.tableData = res.data;
-        this.count = res.count;
         this.tableData.forEach((item, index) => {
           let time = new Date(item.createTime);
           let createTime = (item.createTime =
@@ -88,12 +96,39 @@ export default {
         });
       });
     },
+    handleDelete(id){
+        this.$confirm('此操作将永久删除该书籍, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+            this.$axios.delete(`/book/${id}`).then(res =>{  
+                console.log(res)           
+                if(res.code == 200) {
+                    this.$message.success(res.msg)
+                    this.getData()
+                }
+            })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '已取消删除'
+          });          
+        });
+    },
+    handleEdit(id){
+        this.$router.push({name:'editBook',query:{id}})
+    },
+    addCategory(id){
+        this.$router.push({name:'bookCategory',query:{id}})
+    },
     pnChange(pn) {
       this.pn = pn;
       this.getData();
     }
   },
   created() {
+      this.getcount()
     this.getData();
   }
 };

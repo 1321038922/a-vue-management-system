@@ -50,6 +50,9 @@ const xhr = {
     },
     put(url, data, config){
         return this.fetch(url, data, config, 'put')
+    },
+    delete(url, data, config){
+        return this.fetch(url, data, config, 'delete')
     }
 }
 
